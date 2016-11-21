@@ -1,7 +1,7 @@
 /*
- Name:		micLatencyTest.ino
- Created:	9/15/2016 10:28:24 AM
- Author:	yangtang
+Name:		micLatencyTest.ino
+Created:	9/15/2016 10:28:24 AM
+Author:	yangtang
 */
 #define led 13  // built-in LED
 //#define debug;
@@ -13,6 +13,7 @@ int sensorVal;
 const int analogPin = A0;	// Analog input pin 0
 const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
 unsigned int sample;
+int flag;	// check whether play or pause
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -26,25 +27,36 @@ void setup() {
 void loop() {
 	while (Serial.available() > 0) {	// Send data only when data received
 		beginSignal = Serial.read();	// Read incoming bit
-
-		if (beginSignal == 49 || beginSignal == 50) {	// Wait for input from serial
-			if (beginSignal == 49) { Serial.print("pause|"); }
+		
+		if (beginSignal >= 49 && beginSignal <= 51) {	// Wait for input from serial
+		// Decides what command to execute
+			if (beginSignal == 49) {
+				if (flag == 1) {	// Pause song
+					Serial.print("pause|");
+					flag = 0;
+				}
+				else {	// Play song
+					Serial.print("play|");
+					flag = 1;
+				}
+			}
+			else if (beginSignal == 51) { Serial.print("prev|"); }
 			else { Serial.print("next|"); }
 
 			time1 = micros() / 1000;	// Init time
-			
-			#ifdef debug	// Print sensorVal
-				Serial.print("sensor value: ");
-				Serial.print(sensorVal);
-				Serial.println();
-			#endif	
-			
+
+#ifdef debug	// Print sensorVal
+			Serial.print("sensor value: ");
+			Serial.print(sensorVal);
+			Serial.println();
+#endif	
+
 			double output = 0;
-			
+
 			while (output <= 0.7) {
 				output = peakToPeak();
 			}
-			
+
 			recordTime();
 		}
 	}
