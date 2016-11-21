@@ -41,7 +41,7 @@ void loop() {
 			
 			double output = 0;
 			
-			while (output <= 0.9) {
+			while (output <= 0.7) {
 				output = peakToPeak();
 			}
 			
