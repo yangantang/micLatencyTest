@@ -20,6 +20,7 @@ CONTENTS OF THIS FILE
  * Installation
  * Configuration
  * Troubleshooting
+ 
 ------------
 INTRODUCTION
 ------------
@@ -32,6 +33,7 @@ Arduino clock is used to determine the latency by calculating from when Spotify 
 till when the microphone picks up the music.
 
 This test application only works with Windows PC.
+
 ------------
 REQUIREMENTS
 ------------
@@ -42,6 +44,7 @@ REQUIREMENTS
 
 - Microsoft Visual Studios (Optional)
 - Arduino IDE (Optional)
+
 ------------
 INSTALLATION
 ------------
@@ -53,6 +56,7 @@ INSTALLATION
    visible and the right COM ports are opened by your computer. 
 4) You can use either the Arduino IDE or ArduinoCOM application to check whether COM ports 
    are open.(https://www.arduino.cc/en/Guide/Environment#toc12)
+   
 -------------
 CONFIGURATION
 -------------
@@ -68,6 +72,7 @@ CONFIGURATION
 
 ** I have prepared a list of songs that I use because not all songs start off loud. Songs beginning
    softly will not trigger the timer accurately. The list can be found in song_names.txt.
+   
 ---------------
 TROUBLESHOOTING
 ---------------
