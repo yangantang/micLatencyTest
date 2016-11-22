@@ -34,6 +34,12 @@ void loop() {
 				if (flag == 1) {	// Pause song
 					Serial.print("pause|");
 					flag = 0;
+
+					double val = 0.7;	// This section holds the loop till no sound is heard
+					time1 = micros() / 1000;	// Init time
+					while (val >= 0.3) { val = peakToPeak(); }
+					recordTime();
+					continue;
 				}
 				else {	// Play song
 					Serial.print("play|");
@@ -50,13 +56,9 @@ void loop() {
 			Serial.print(sensorVal);
 			Serial.println();
 #endif	
-
+			
 			double output = 0;
-
-			while (output <= 0.7) {
-				output = peakToPeak();
-			}
-
+			while (output <= 0.7) {	output = peakToPeak(); }
 			recordTime();
 		}
 	}
