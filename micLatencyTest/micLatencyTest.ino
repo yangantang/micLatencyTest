@@ -28,7 +28,7 @@ void loop() {
 	while (Serial.available() > 0) {	// Send data only when data received
 		beginSignal = Serial.read();	// Read incoming bit
 		
-		if (beginSignal >= 49 && beginSignal <= 51) {	// Wait for input from serial
+		if (beginSignal >= 49 && beginSignal <= 52) {	// Wait for input from serial
 		// Decides what command to execute
 			if (beginSignal == 49) {
 				if (flag == 1) {	// Pause song
@@ -47,6 +47,13 @@ void loop() {
 				}
 			}
 			else if (beginSignal == 51) { Serial.print("prev|"); }
+			else if (beginSignal == 52) { 
+				int starter;
+				Serial.print("speech|");
+				do {
+					starter = Serial.read();
+				} while (starter != 49);
+			}
 			else { Serial.print("next|"); }
 
 			time1 = micros() / 1000;	// Init time
@@ -94,7 +101,7 @@ double peakToPeak() {
 }
 
 void recordTime() {
-	time2 = micros() / 1000;	// Saves time when music was heard
+	time2 = (micros() / 1000) - 50;	// Saves time when music was heard
 	digitalWrite(led, HIGH);
 
 	//prints time(ms) = time2 - time1
